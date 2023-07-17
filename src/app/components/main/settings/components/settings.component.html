@@ -1,0 +1,141 @@
+
+<div class="container ">
+    <header >Settings</header>
+    <section  class="mt-5">
+        <div class="form first w-100">
+            <div class="details personal">
+                <span class="title">Personal Details</span>
+                <div class="fields">
+                    <div class="w-100 d-flex justify-content-between  flex-wrap">
+                        <div class="input-field ms-1">
+                            <label>Add Program</label>
+                            <input type="text" placeholder="Enter Program Name" class="form-control" [(ngModel)]="addProgramName" >
+                        </div>
+                        <button class="buttons"  (click)="addProgram()" [disabled]="addProgramName.length < 2 ">Add Progarm</button>
+                    </div>
+                    
+                    <div class="w-100 d-flex justify-content-between  flex-wrap">
+                        <div class="input-field ms-1" >
+                            <label>Edit Program</label>
+                            <select (change)="changeProgram($event)" [ngClass]="programNameSelected !== '' ? 'selected' : 'form-control' "   >
+                                <option disabled selected>Select Program</option>
+                                <option *ngFor="let item of programmes"  value={{[item.id,item.program]}}    >{{item.program}}</option>
+                            </select>
+                        </div>
+                        <button class="buttons" *ngIf="programNameSelected"  data-bs-toggle="modal" data-bs-target="#deleteProgram"  >Delete Progarm</button>
+                    </div>
+                        
+                    <div *ngIf="programNameSelected" class="w-100 d-flex justify-content-between  flex-wrap">
+                        <div class="input-field ms-1" >
+                            <label>New Program Name</label>
+                            <input type="text" placeholder="Enter New Program Name" class="form-control" [(ngModel)]="newProgramName" >
+                        </div>
+                        <button class="buttons"  (click)="editProgram()" [disabled]="newProgramName.length < 3">Edit Progarm</button>
+                    </div>
+                    
+                    <div class="w-100 d-flex justify-content-between  flex-wrap">
+                        <div class="input-field ms-1">
+                            <label>Add Intake</label>
+                            <input type="text" placeholder="Enter Intake Number" class="form-control" [(ngModel)]="addIntakeName" >
+                        </div>
+                        <button class="buttons" (click)="addIntake()" [disabled]="addIntakeName.length < 3">Add Intake</button>
+                    </div>
+                        
+                    <div class="w-100 d-flex justify-content-between  flex-wrap">
+                        <div class="input-field ms-1">
+                            <label>Edit Intake</label>
+                            <select (change)="changeIntake($event)" [ngClass]="intakeNameSelected !== '' ? 'selected' : 'form-control' " >
+                                <option disabled selected>Select Intake</option>
+                                <option *ngFor="let item of intakes" value={{[item.id,item.intake]}}>{{item.intake}}</option>
+                            </select>
+                        </div>
+                        <button class="buttons" *ngIf="intakeNameSelected"  data-bs-toggle="modal" data-bs-target="#deleteIntake"  >Delete Intake</button>
+
+                    </div>
+
+                    <div *ngIf="intakeNameSelected" class="w-100 d-flex justify-content-between  flex-wrap">
+                        <div class="input-field ms-1" >
+                            <label>New Intake Name</label>
+                            <input type="text" placeholder="Enter New intake Name" class="form-control" [(ngModel)]="newIntakeName" >
+                        </div>
+                        <button class="buttons" (click)="editIntake()" [disabled]="newIntakeName.length < 3 ">Edit Intake</button>
+                    </div>
+                        
+                </div>
+            </div>
+
+
+
+
+            <div *ngIf="isAction" [ngSwitch]="switchExpression">
+
+                <div *ngSwitchCase="'Add New Program'" class="alert alert-{{status}} p-3" role="alert">
+                    Successfully {{switchExpression}} 
+                </div>
+                <div *ngSwitchCase="'Edit Name Program'" class="alert alert-{{status}} p-3" role="alert">
+                    Successfully {{switchExpression}}  
+                </div>
+                <div *ngSwitchCase="'Delete Program'" class="alert alert-{{status}} p-3" role="alert">
+                    Successfully {{switchExpression}} 
+                </div>
+                <div *ngSwitchCase="'Add New Intake'" class="alert alert-{{status}} p-3" role="alert">
+                    Successfully {{switchExpression}}  
+                </div>
+                <div *ngSwitchCase="'Failed Delete Program'" class="alert alert-{{status}} p-3" role="alert">
+                    {{switchExpression}}  
+                </div>
+                <div *ngSwitchCase="'Edit Name Intake'" class="alert alert-{{status}} p-3" role="alert">
+                    Successfully {{switchExpression}}  
+                </div>
+                <div *ngSwitchCase="'Delete Intake'" class="alert alert-{{status}} p-3" role="alert">
+                    Successfully {{switchExpression}}  
+                </div>
+                <div *ngSwitchCase="'Failed Delete Intake'" class="alert alert-{{status}} p-3" role="alert">
+                    {{switchExpression}}  
+                </div>
+            </div>
+
+        </div>
+    </section>
+        <div class="d-flex justify-content-between">
+            <button class="buttons" (click)="back()" >Back</button>
+        </div>
+</div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="deleteProgram" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Program</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this program.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="deleteProgram()" data-bs-dismiss="modal"  >Yes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancel</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteIntake" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Intake</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this intake.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteIntake()" >Yes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancel</button>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.btn-dark{
+    background-color: #70063d !important;
+    border: #70063d;
+}
+
+.form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: rgba(255, 255, 255, 0.15);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(112, 6, 60, 0.25);
+}
+
+label{
+    font-size: 20px;
+    font-weight: 600;
+}

@@ -1,0 +1,23 @@
+
+.export , .mail{
+    font-size: 30px;
+    /* margin-left: 7px; */
+    margin: 0 10px ;
+    cursor: pointer;
+    color: #22b973c0;
+    transition: all 0.2s ease-in-out;
+}
+.mail{
+    color: #86b7fe;
+
+}
+.mail:hover{
+    color: #6d8ab6;
+}
+.export:hover{
+    color: #1a8151bf;
+}
+
+.margin{
+    margin-left: 100px !important;
+}
